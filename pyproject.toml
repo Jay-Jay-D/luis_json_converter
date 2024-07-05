@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "luis-json-converter"
+version = "0.1.0"
+description = ""
+authors = ["JJD <jjdambrosio@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pytest = "^8.2.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+convert_luis_json = "luis_json_converter.__main__:main"
