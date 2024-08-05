@@ -1,7 +1,7 @@
 import re
 import json
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 def process_luis_model(luis_json_file: Path, output_file: Path) -> None:
     """
@@ -101,5 +101,26 @@ class Converter:
                 self.process_entity(child, new_parent_names)
 
     def update_utterances(self) -> None:
-        # Placeholder for future implementation to update utterances
-        pass
+        """
+        Updates the utterances in the CLU model to reflect the flattened entity names.
+        """
+        if 'utterances' in self.luis_model:
+            self.clu_model['utterances'] = []
+            for utterance in self.luis_model['utterances']:
+                new_utterance = utterance.copy()
+                self.update_entities_in_utterance(new_utterance['entities'])
+                self.clu_model['utterances'].append(new_utterance)
+
+    def update_entities_in_utterance(self, entities: List[Dict[str, Any]]) -> None:
+        """
+        Recursively updates the entities in an utterance using the mapping.
+        
+        Args:
+            entities (List[Dict[str, Any]]): The list of entities in an utterance.
+        """
+        for entity in entities:
+            original_name = entity['entity']
+            if original_name in self.mapping:
+                entity['entity'] = self.mapping[original_name]
+            if 'children' in entity:
+                self.update_entities_in_utterance(entity['children'])
