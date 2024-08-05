@@ -1,10 +1,11 @@
 import pytest
-import json
 
-from luis_json_converter.converter import process_entity
+from luis_json_converter.converter import Converter
 
-def test_process_entity():
-    input_data = {
+
+test_cases = [
+    pytest.param(
+    {
         "entities": [
             {
                 "name": "Where",
@@ -43,9 +44,8 @@ def test_process_entity():
                 ]
             }
         ]
-    }
-
-    expected_output = {
+    },
+    {
         "entities": [
             {
                 "name": "Where",
@@ -84,10 +84,25 @@ def test_process_entity():
                 ]
             }
         ]
-    }
+    },
+    {
+     'WhereDatetimeV2':'DatetimeV2',
+     'WhereRange': 'Range',
+     'WhereRangeDatetimeV2': 'DatetimeV2',
+     'WhereRangeDimension': 'Dimension',
+     'WhereRangeOrdering':'Ordering',
+     'WhereOperatorSumExact':'SumExact'
+    },
+    id='Base Case'
+    )
+]
 
-    # Processing the input data
-    for entity in input_data['entities']:
-        process_entity(entity, entity['name'])
-
-    assert input_data == expected_output
+@pytest.mark.parametrize("input_data, expected_output, expected_mapping", test_cases)
+def test_flatten_entities(input_data, expected_output, expected_mapping):
+    # Arrange
+    converter = Converter(input_data)
+    # Act
+    mapping = converter.flatten_entities()
+    # Assert
+    assert converter.clu_model == expected_output
+    assert mapping == expected_mapping
