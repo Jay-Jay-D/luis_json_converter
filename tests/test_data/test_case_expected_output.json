@@ -1,0 +1,119 @@
+{
+    "entities": [
+        {
+            "name": "Where",
+            "children": [
+                {
+                    "name": "DatetimeV2",
+                    "children": [],
+                    "features": [
+                        {"modelName": "datetimeV2", "isRequired": true}
+                    ]
+                },
+                {
+                    "name": "Range",
+                    "children": [
+                        {
+                            "name": "DatetimeV2",
+                            "children": [],
+                            "features": [
+                                {"modelName": "datetimeV2", "isRequired": true}
+                            ]
+                        },
+                        {
+                            "name": "Dimension",
+                            "children": [],
+                            "features": [
+                                {"modelName": "Dimensions", "isRequired": false}
+                            ]
+                        },
+                        {
+                            "name": "Ordering",
+                            "children": [],
+                            "features": [
+                                {
+                                    "modelName": "_Order_expressions",
+                                    "isRequired": false
+                                }
+                            ]
+                        }
+                    ],
+                    "features": []
+                },
+                {"name": "SumExact", "children": [], "features": []}
+            ]
+        },
+        {
+            "name": "Ranking",
+            "children": [
+                {
+                    "name": "Quantity",
+                    "children": [],
+                    "features": [{"modelName": "number", "isRequired": true}]
+                },
+                {
+                    "name": "Dimension",
+                    "children": [],
+                    "features": [
+                        {"modelName": "Dimensions", "isRequired": true}
+                    ]
+                },
+                {
+                    "name": "OrderAsc",
+                    "children": [],
+                    "features": [
+                        {
+                            "modelName": "_TrainingListOrderAsc",
+                            "isRequired": false
+                        }
+                    ]
+                },
+                {
+                    "name": "OrderDesc",
+                    "children": [],
+                    "features": [
+                        {
+                            "modelName": "_TrainingListOrderDesc",
+                            "isRequired": false
+                        }
+                    ]
+                }
+            ],
+            "roles": [],
+            "features": []
+        }
+    ],
+    "utterances": [
+        {
+            "text": "2 atributo3 con peores metrica4",
+            "intent": "QueryToData",
+            "entities": [
+                {
+                    "entity": "Ranking",
+                    "startPos": 0,
+                    "endPos": 21,
+                    "children": [
+                        {
+                            "entity": "Quantity",
+                            "startPos": 0,
+                            "endPos": 0,
+                            "children": []
+                        },
+                        {
+                            "entity": "Dimension",
+                            "startPos": 2,
+                            "endPos": 10,
+                            "children": []
+                        },
+                        {
+                            "entity": "OrderAsc",
+                            "startPos": 12,
+                            "endPos": 21,
+                            "children": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
